@@ -26,7 +26,3 @@ User.belongsTo(Organization, { foreignKey: 'organizationId' });
 
 Organization.hasMany(Product, { foreignKey: 'organizationId' });
 Product.belongsTo(Organization, { foreignKey: 'organizationId' });
-
-sequelize.sync({ alter: true }).catch((err) => {
-  console.error('[sequelize sync]', err);
-});

@@ -33,11 +33,14 @@ export function Sidebar() {
           );
         })}
       </nav>
-      {/* Simple logout trigger for MVP */}
       <div className="p-4 border-t border-gray-800">
-        <button 
-          onClick={() => {
-            document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        <button
+          type="button"
+          onClick={async () => {
+            await fetch('/api/auth/logout', {
+              method: 'POST',
+              credentials: 'include',
+            });
             window.location.href = '/login';
           }}
           className="text-gray-400 hover:text-white w-full text-left px-4 py-2"
