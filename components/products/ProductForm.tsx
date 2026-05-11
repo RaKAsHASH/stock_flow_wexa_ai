@@ -44,6 +44,16 @@ export function ProductForm() {
         <Input id="product-sku" label="SKU *" name="sku" required />
       </div>
 
+      <div className="flex flex-col space-y-1">
+        <label htmlFor="product-desc" className="text-sm font-medium text-gray-700">Description</label>
+        <textarea
+          id="product-desc"
+          name="description"
+          className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-h-[72px]"
+          placeholder="Optional"
+        />
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         <Input
           id="product-qty"
@@ -61,6 +71,11 @@ export function ProductForm() {
           min={0}
           placeholder="Uses global default if empty"
         />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <Input id="product-cost" label="Cost Price (optional)" name="costPrice" type="number" min={0} step="0.01" />
+        <Input id="product-sell" label="Selling Price (optional)" name="sellingPrice" type="number" min={0} step="0.01" />
       </div>
 
       <div className="flex justify-end space-x-2 pt-4">

@@ -44,12 +44,34 @@ export async function POST(req: Request) {
       );
     }
 
+    const description =
+      body.description === undefined ||
+      body.description === null ||
+      body.description === ''
+        ? null
+        : String(body.description);
+
+    const tryMoney = (raw: unknown): { ok: false } | { ok: true; value: number | null } => {
+      if (raw === '' || raw === undefined || raw === null) return { ok: true, value: null };
+      const n = typeof raw === 'string' ? parseFloat(raw) : Number(raw);
+      if (Number.isNaN(n) || n < 0) return { ok: false };
+      return { ok: true, value: n };
+    };
+    const c = tryMoney(body.costPrice);
+    const s = tryMoney(body.sellingPrice);
+    if (!c.ok || !s.ok) {
+      return NextResponse.json({ error: 'Invalid price value' }, { status: 400 });
+    }
+
     const product = await Product.create({
       organizationId: session.organizationId,
       name: body.name,
       sku: body.sku,
+      description,
       quantityOnHand,
       lowStockThreshold,
+      costPrice: c.value,
+      sellingPrice: s.value,
     });
 
     return NextResponse.json(product, { status: 201 });

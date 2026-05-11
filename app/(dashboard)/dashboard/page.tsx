@@ -35,6 +35,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="max-w-5xl mx-auto">
+      <p className="text-sm font-medium text-gray-500 mb-1">{org?.name ?? 'Organization'}</p>
       <h1 className="text-3xl font-bold mb-8">Overview</h1>
       
       <div className="grid grid-cols-2 gap-6 mb-8">
